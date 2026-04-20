@@ -6,7 +6,7 @@ import androidx.compose.ui.window.application
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
-        title = "Labo2_cross_platform",
+        title = "Labo3_cross_platform",
     ) {
         App()
     }

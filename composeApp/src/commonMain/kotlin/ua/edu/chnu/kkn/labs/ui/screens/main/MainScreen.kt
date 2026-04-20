@@ -16,13 +16,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import labo2_cross_platform.composeapp.generated.resources.Res
-import labo2_cross_platform.composeapp.generated.resources.buttons
-import labo2_cross_platform.composeapp.generated.resources.checkboxes
-import labo2_cross_platform.composeapp.generated.resources.current_date
-import labo2_cross_platform.composeapp.generated.resources.current_time
-import labo2_cross_platform.composeapp.generated.resources.current_timezone
+import labo3_cross_platform.composeapp.generated.resources.Res
+import labo3_cross_platform.composeapp.generated.resources.buttons
+import labo3_cross_platform.composeapp.generated.resources.checkboxes
+import labo3_cross_platform.composeapp.generated.resources.chips
+import labo3_cross_platform.composeapp.generated.resources.current_date
+import labo3_cross_platform.composeapp.generated.resources.current_time
+import labo3_cross_platform.composeapp.generated.resources.current_timezone
+import labo3_cross_platform.composeapp.generated.resources.datepicker
+import labo3_cross_platform.composeapp.generated.resources.dialog
+import labo3_cross_platform.composeapp.generated.resources.divider
+import labo3_cross_platform.composeapp.generated.resources.progress_bar
+import labo3_cross_platform.composeapp.generated.resources.radio_buttons
+import labo3_cross_platform.composeapp.generated.resources.switch_component
+import labo3_cross_platform.composeapp.generated.resources.timepicker
 import co.touchlab.kermit.Logger
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import ua.edu.chnu.kkn.labs.data.timezones.TimeZoneHelper
 import ua.edu.chnu.kkn.labs.data.timezones.TimeZoneHelperImpl
@@ -31,6 +40,14 @@ import ua.edu.chnu.kkn.labs.data.timezones.TimeZoneHelperImpl
 fun MainScreen(
     onButtonsClicked: () -> Unit,
     onCheckboxesClicked: () -> Unit,
+    onChipsClicked: () -> Unit,
+    onDatepickerClicked: () -> Unit,
+    onDialogClicked: () -> Unit,
+    onDividerClicked: () -> Unit,
+    onProgressBarClicked: () -> Unit,
+    onRadioButtonsClicked: () -> Unit,
+    onSwitchClicked: () -> Unit,
+    onTimepickerClicked: () -> Unit,
 ) {
     val timeZoneHelper: TimeZoneHelper = remember { TimeZoneHelperImpl() }
     val currentTimeZone = remember { timeZoneHelper.currentTimeZone() }
@@ -42,6 +59,19 @@ fun MainScreen(
         Logger.i { "MainScreen: currentTime=$currentTime" }
         Logger.i { "MainScreen: currentDate=$currentDate" }
     }
+
+    val navItems: List<Pair<StringResource, () -> Unit>> = listOf(
+        Res.string.buttons to onButtonsClicked,
+        Res.string.checkboxes to onCheckboxesClicked,
+        Res.string.chips to onChipsClicked,
+        Res.string.datepicker to onDatepickerClicked,
+        Res.string.dialog to onDialogClicked,
+        Res.string.divider to onDividerClicked,
+        Res.string.progress_bar to onProgressBarClicked,
+        Res.string.radio_buttons to onRadioButtonsClicked,
+        Res.string.switch_component to onSwitchClicked,
+        Res.string.timepicker to onTimepickerClicked,
+    )
 
     Column(
         modifier = Modifier
@@ -64,24 +94,17 @@ fun MainScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
-                Logger.d { "MainScreen: Buttons button clicked" }
-                onButtonsClicked()
+        navItems.forEach { (titleRes, onClick) ->
+            val label = stringResource(titleRes)
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    Logger.d { "MainScreen: $label button clicked" }
+                    onClick()
+                }
+            ) {
+                Text(label)
             }
-        ) {
-            Text(stringResource(Res.string.buttons))
-        }
-
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
-                Logger.d { "MainScreen: Checkboxes button clicked" }
-                onCheckboxesClicked()
-            }
-        ) {
-            Text(stringResource(Res.string.checkboxes))
         }
     }
 }
@@ -90,6 +113,15 @@ fun MainScreen(
 @Composable
 private fun MainScreenPreview() {
     MainScreen(
-        {},
-    ) {}
+        onButtonsClicked = {},
+        onCheckboxesClicked = {},
+        onChipsClicked = {},
+        onDatepickerClicked = {},
+        onDialogClicked = {},
+        onDividerClicked = {},
+        onProgressBarClicked = {},
+        onRadioButtonsClicked = {},
+        onSwitchClicked = {},
+        onTimepickerClicked = {},
+    )
 }
