@@ -25,16 +25,34 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import labo2_cross_platform.composeapp.generated.resources.*
+import labo3_cross_platform.composeapp.generated.resources.*
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import ua.edu.chnu.kkn.labs.ui.screens.buttons.ButtonsScreen
 import ua.edu.chnu.kkn.labs.ui.screens.checkboxes.CheckboxesScreen
+import ua.edu.chnu.kkn.labs.ui.screens.chips.ChipsScreen
+import ua.edu.chnu.kkn.labs.ui.screens.datepicker.DatepickerScreen
+import ua.edu.chnu.kkn.labs.ui.screens.dialog.DialogScreen
+import ua.edu.chnu.kkn.labs.ui.screens.divider.DividerScreen
 import ua.edu.chnu.kkn.labs.ui.screens.main.MainScreen
+import ua.edu.chnu.kkn.labs.ui.screens.progressbar.ProgressBarScreen
+import ua.edu.chnu.kkn.labs.ui.screens.radiobuttons.RadioButtonsScreen
+import ua.edu.chnu.kkn.labs.ui.screens.switchcomponent.SwitchScreen
+import ua.edu.chnu.kkn.labs.ui.screens.timepicker.TimepickerScreen
 
 enum class AppScreen(val title: StringResource) {
-    Main(title = Res.string.main), Buttons(title = Res.string.buttons), Checkboxes(title = Res.string.checkboxes),
+    Main(title = Res.string.main),
+    Buttons(title = Res.string.buttons),
+    Checkboxes(title = Res.string.checkboxes),
+    Chips(title = Res.string.chips),
+    Datepicker(title = Res.string.datepicker),
+    Dialog(title = Res.string.dialog),
+    Divider(title = Res.string.divider),
+    ProgressBar(title = Res.string.progress_bar),
+    RadioButtons(title = Res.string.radio_buttons),
+    Switch(title = Res.string.switch_component),
+    Timepicker(title = Res.string.timepicker),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -93,8 +111,16 @@ fun AppNavigation() {
         ) {
             composable(route = AppScreen.Main.name) {
                 MainScreen(
-                    onButtonsClicked = {navController.navigate(AppScreen.Buttons.name)},
-                    onCheckboxesClicked = {navController.navigate(AppScreen.Checkboxes.name)},
+                    onButtonsClicked = { navController.navigate(AppScreen.Buttons.name) },
+                    onCheckboxesClicked = { navController.navigate(AppScreen.Checkboxes.name) },
+                    onChipsClicked = { navController.navigate(AppScreen.Chips.name) },
+                    onDatepickerClicked = { navController.navigate(AppScreen.Datepicker.name) },
+                    onDialogClicked = { navController.navigate(AppScreen.Dialog.name) },
+                    onDividerClicked = { navController.navigate(AppScreen.Divider.name) },
+                    onProgressBarClicked = { navController.navigate(AppScreen.ProgressBar.name) },
+                    onRadioButtonsClicked = { navController.navigate(AppScreen.RadioButtons.name) },
+                    onSwitchClicked = { navController.navigate(AppScreen.Switch.name) },
+                    onTimepickerClicked = { navController.navigate(AppScreen.Timepicker.name) },
                 )
             }
             composable(route = AppScreen.Buttons.name) {
@@ -112,6 +138,30 @@ fun AppNavigation() {
             }
             composable(route = AppScreen.Checkboxes.name) {
                 CheckboxesScreen()
+            }
+            composable(route = AppScreen.Chips.name) {
+                ChipsScreen()
+            }
+            composable(route = AppScreen.Datepicker.name) {
+                DatepickerScreen()
+            }
+            composable(route = AppScreen.Dialog.name) {
+                DialogScreen()
+            }
+            composable(route = AppScreen.Divider.name) {
+                DividerScreen()
+            }
+            composable(route = AppScreen.ProgressBar.name) {
+                ProgressBarScreen()
+            }
+            composable(route = AppScreen.RadioButtons.name) {
+                RadioButtonsScreen()
+            }
+            composable(route = AppScreen.Switch.name) {
+                SwitchScreen()
+            }
+            composable(route = AppScreen.Timepicker.name) {
+                TimepickerScreen()
             }
         }
     }

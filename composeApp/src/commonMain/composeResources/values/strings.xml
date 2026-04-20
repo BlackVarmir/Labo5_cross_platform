@@ -2,6 +2,14 @@
     <string name="main">Main</string>
     <string name="buttons">Buttons</string>
     <string name="checkboxes">Checkboxes</string>
+    <string name="chips">Chips</string>
+    <string name="datepicker">Datepicker dialog</string>
+    <string name="dialog">Dialog</string>
+    <string name="divider">Divider</string>
+    <string name="progress_bar">Progress bar</string>
+    <string name="radio_buttons">Radio buttons</string>
+    <string name="switch_component">Switch</string>
+    <string name="timepicker">Timepicker dialog</string>
     <string name="back">Back</string>
     <string name="current_time">Current time: %1$s</string>
     <string name="current_date">Current date: %1$s</string>

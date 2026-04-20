@@ -5,8 +5,8 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import labo2_cross_platform.composeapp.generated.resources.Res
-import labo2_cross_platform.composeapp.generated.resources.audiowide_regular
+import labo3_cross_platform.composeapp.generated.resources.Res
+import labo3_cross_platform.composeapp.generated.resources.audiowide_regular
 import org.jetbrains.compose.resources.Font
 
 private val lightScheme = lightColorScheme(
