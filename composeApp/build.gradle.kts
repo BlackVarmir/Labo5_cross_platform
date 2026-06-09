@@ -66,6 +66,12 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
         }
+        // Lab 5 (web): kotlinx-datetime needs the IANA time-zone database, which
+        // browsers do not ship. The @js-joda/timezone npm package provides it.
+        // Adding it to webMain makes it available to both the wasmJs and js targets.
+        webMain.dependencies {
+            implementation(npm("@js-joda/timezone", "2.25.1"))
+        }
     }
 }
 

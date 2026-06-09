@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -21,11 +20,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ua.edu.chnu.kkn.labs.ui.window.PlatformDialogWindow
 
 /**
  * Dialog #2 from the lab: time-zone selection dialog. Shows every available zone
- * (from the time-zone helper class), with a search field to filter and hides the
+ * (from the time-zone helper class), with a search field to filter, and hides the
  * ones already added.
+ *
+ * Lab 5 (requirement 2.a): hosted by [PlatformDialogWindow] so it opens in a
+ * separate OS window on desktop and inline on the other platforms.
  */
 @Composable
 fun AddTimeZoneDialog(
@@ -39,35 +42,37 @@ fun AddTimeZoneDialog(
         allZones.filter { it.contains(query, ignoreCase = true) && it !in alreadySelected }
     }
 
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Select a time zone") },
-        text = {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(
-                    value = query,
-                    onValueChange = { query = it },
-                    label = { Text("Search") },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                LazyColumn(modifier = Modifier.fillMaxWidth().height(320.dp)) {
-                    items(filtered) { zone ->
-                        Text(
-                            text = zone,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { onSelect(zone) }
-                                .padding(vertical = 12.dp)
-                        )
-                        HorizontalDivider()
-                    }
+    PlatformDialogWindow(title = "Select a time zone", onCloseRequest = onDismiss) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                label = { Text("Search") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            LazyColumn(modifier = Modifier.fillMaxWidth().height(320.dp)) {
+                items(filtered) { zone ->
+                    Text(
+                        text = zone,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { onSelect(zone) }
+                            .padding(vertical = 12.dp)
+                    )
+                    HorizontalDivider()
                 }
             }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) { Text("Close") }
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = androidx.compose.ui.Alignment.End
+            ) {
+                TextButton(onClick = onDismiss) { Text("Close") }
+            }
         }
-    )
+    }
 }
